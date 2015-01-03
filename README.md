@@ -3,6 +3,8 @@ Styleguide
 
 A WordPress plugin that lets you edit colours and fonts easily.
 
+![Twenty Thirteen Screenshot](https://github.com/binarymoon/syleguide/raw/master/screenshots/screenshot-1.png)
+
 # Supported Themes
 
 In the long term I plan to support all the default themes, and my own themes. I would also consider adding support for other peoples themes as well (although you can easily add support to your own themes if you wish).
