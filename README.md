@@ -3,7 +3,7 @@ Styleguide
 
 A WordPress plugin that lets you edit colours and fonts easily.
 
-![Twenty Thirteen Screenshot](https://github.com/binarymoon/syleguide/raw/master/screenshots/screenshot-1.png)
+![Twenty Thirteen Screenshot](https://github.com/BinaryMoon/styleguide/raw/master/screenshots/screenshot-1.png)
 
 # Supported Themes
 
