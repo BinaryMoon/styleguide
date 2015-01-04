@@ -65,6 +65,9 @@ class StyleGuide {
 
 		if ( file_exists( $file ) ) {
 			include( $file );
+		} else {
+			$file = plugin_dir_path ( __FILE__ ) . 'theme-styles/_default.php';
+			include( $file );
 		}
 
 	}
