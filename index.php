@@ -39,7 +39,6 @@ class StyleGuide {
 			return $styleguide;
 		}
 
-		// setup hooks
 		add_action( 'after_setup_theme', array( &$this, 'check_compat' ), 99 );
 		add_action( 'wp_head', array( &$this, 'process_styles' ), 99 );
 		add_action( 'customize_register', array( &$this, 'setup_customizer' ) );
@@ -78,8 +77,7 @@ class StyleGuide {
 	 */
 	function enqueue_fonts() {
 
-		$settings = get_theme_support( 'styleguide' );
-		$settings = $settings[0];
+		$settings = $this->get_settings();
 
 		// make sure there's fonts to change
 		if ( empty( $settings['fonts'] ) ) {
@@ -112,11 +110,7 @@ class StyleGuide {
 	 */
 	function process_styles() {
 
-		$settings = get_theme_support( 'styleguide' );
-
-		if ( $settings ) {
-			$settings = $settings[0];
-		}
+		$settings = $this->get_settings();
 
 		if ( ! empty( $settings['colors'] ) ) {
 
@@ -164,7 +158,7 @@ class StyleGuide {
 	 */
 	function customize_register( $wp_customize ) {
 
-		$settings = get_theme_support( 'styleguide', 'colors' );
+		$settings = $this->get_settings( 'colors' );
 
 		// make sure there's colors to change
 		if ( empty( $settings ) ) {
@@ -241,14 +235,14 @@ class StyleGuide {
 
 		$fonts = array();
 		$available_fonts = styleguide_fonts();
-		$settings = get_theme_support( 'styleguide' );
+		$settings = $this->get_settings();
 
-		if ( empty( $settings[0]['fonts'] ) ) {
+		if ( empty( $settings['fonts'] ) ) {
 			return $fonts;
 		}
 
 		// load chosen fonts
-		foreach( $settings[0]['fonts'] as $font_key => $font ) {
+		foreach( $settings['fonts'] as $font_key => $font ) {
 			// make sure it's a google font and not a system font
 			// by default all fonts are google fonts
 			if ( ! isset( $font['google'] ) || true === $font['google'] ) {
@@ -295,11 +289,10 @@ class StyleGuide {
 	 */
 	function setup_customizer( $wp_customize ) {
 
-		$settings = get_theme_support( 'styleguide' );
+		$settings = $this->get_settings();
 
 		if ( $settings ) {
 
-			$settings = $settings[0];
 			$priority = 1;
 
 			// add font controls
@@ -311,7 +304,7 @@ class StyleGuide {
 					$key = 'styleguide_font_' . $font_key;
 
 					$wp_customize->add_setting( $key, array(
-						'default' => '',
+						'default' => $font['default'],
 						'capability' => 'edit_theme_options',
 						'sanitize_callback' => 'styleguide_sanitize_select',
 					) );
@@ -394,6 +387,28 @@ class StyleGuide {
 		}
 
 		return $fonts;
+
+	}
+
+
+	/**
+	 * get the settings for the theme with optional key
+	 *
+	 * @param type $key
+	 */
+	function get_settings( $key = null ) {
+
+		$settings = get_theme_support( 'styleguide' );
+
+		if ( isset( $settings[0] ) ) {
+			$settings = $settings[0];
+		}
+
+		if ( null !== $key && isset( $settings[ $key ] ) ) {
+			return $settings[ $key ];
+		}
+
+		return $settings;
 
 	}
 
