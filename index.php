@@ -143,20 +143,13 @@ class StyleGuide {
 
 			// other custom colors
 			foreach( $settings['colors'] as $color_key => $color ) {
-				$key = 'styleguide_color_' . $color_key;
-				$this->process_colors( $color_key, get_theme_mod( $key, $color[ 'default' ] ) );
+				$this->process_colors( $color_key, get_theme_mod( 'styleguide_color_' . $color_key, $color[ 'default' ] ) );
 			}
 
 			// if there's any color combos then do them too
 			if ( ! empty( $settings['color-combos'] ) ) {
 				foreach( $settings['color-combos'] as $combo_key => $combo ) {
-					$key = 'styleguide_color_' . $combo['background'];
-					$color1 = get_theme_mod( $key, $settings['colors'][ $combo['background'] ]['default'] );
-
-					$key = 'styleguide_color_' . $combo['foreground'];
-					$color2 = get_theme_mod( $key, $settings['colors'][ $combo['foreground'] ]['default'] );
-
-					$this->process_colors( $combo_key, $color1, $color2 );
+					$this->process_colors( $combo_key, $this->colors[ $combo['background'] . '-bg-0' ], $this->colors[ $combo['foreground'] . '-bg-0' ] );
 				}
 			}
 
@@ -165,7 +158,6 @@ class StyleGuide {
 		if ( ! empty( $settings['css'] ) ) {
 			$this->output_css( $settings['css'] );
 		}
-
 
 	}
 
