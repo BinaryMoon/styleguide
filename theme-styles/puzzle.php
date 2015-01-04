@@ -29,16 +29,20 @@ $css = <<<CSS
 	body, h1, h2, h3, h4, h5, h6 {
 		color: {{color-theme-background-fg-0}};
 	}
-	.widget h3.widgettitle, body a {
-		color: {{color-theme-background-fg-2}};
-	}
 	.masthead nav.menu a {
-		color: {{color-theme-background-fg-1}};
+		color: {{color-theme-background-fg-0}};
+	}
+	.widget h3.widgettitle,
+	body a {
+		color: {{color-background-link-fg-0}};
 	}
 	body a:hover {
-		color: {{color-theme-background-fg-3}};
+		color: {{color-background-link-fg-1}};
 	}
-	.widget.widget_rss li .rss-date' => array (
+	.masthead nav.menu li.current-menu-item a {
+		color: {{color-background-link-fg-0}};
+	}
+	.widget.widget_rss li .rss-date {
 		color: {{color-theme-background-fg+2}};
 	}
 	.masthead nav.menu,
@@ -50,7 +54,10 @@ $css = <<<CSS
 		border-top-color: {{color-theme-background-fg-1}};
 	}
 	table tr:nth-child(odd),
-	.wp-caption, .main .postnav, .content-comments, a.post-edit-link, a.post-edit-link:hover {
+	.wp-caption, .main .postnav,
+	.content-comments,
+	a.post-edit-link,
+	a.post-edit-link:hover {
 		background-color: {{color-theme-background-bg-1}};
 	}
 	.main .postnav .prev a:before,
@@ -61,10 +68,13 @@ $css = <<<CSS
 	#wp-calendar {
 		border-color: {{color-theme-background-bg-3}};
 	}
-	table tr:nth-child(even), #wp-calendar th, #wp-calendar caption {
+	table tr:nth-child(even),
+	#wp-calendar th,
+	#wp-calendar caption {
 		background-color: {{color-theme-background-bg-2}};
 	}
-	.wp-caption .wp-caption-text, .main article .taxonomy {
+	.wp-caption .wp-caption-text,
+	.main article .taxonomy {
 		color: {{color-theme-background-fg-1}};
 	}
 	.infinite-scroll #infinite-handle span,
@@ -94,6 +104,12 @@ add_theme_support( 'styleguide', array(
 		'link' => array(
 			'label' => __( 'Link Color', 'styleguide' ),
 			'default' => '#2ecc71',
+		),
+	),
+	'color-combos' => array(
+		'background-link' => array(
+			'foreground' => 'link',
+			'background' => 'theme-background',
 		),
 	),
 	'fonts' => array(
