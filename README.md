@@ -10,6 +10,8 @@ A WordPress plugin that lets you edit colours and fonts easily.
 In the long term I plan to support all the default themes, and my own themes. I would also consider adding support for other peoples themes as well (although you can easily add support to your own themes if you wish).
 
 * [Twenty Ten](https://wordpress.org/themes/twentyten)
+* [Twenty Eleven](https://wordpress.org/themes/twentyeleven)
+* [Twenty Twelve](https://wordpress.org/themes/twentytwelve)
 * [Twenty Thirteen](https://wordpress.org/themes/twentythirteen)
 * [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen)
 * [Puzzle](https://creativemarket.com/BinaryMoon/108641-Puzzle-Responsive-WordPress-Theme?u=BinaryMoon)
