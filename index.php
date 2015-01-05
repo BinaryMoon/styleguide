@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * Wishlist
  *
  * style templates
- * auto dequeue existing fonts (probably needs some properties in the add_theme_support)
  * allow fonts that aren't in the font list (to support themes with default fonts)
  * add intelligent defaults for properties
  * check if the color control already exists and if not create it
@@ -61,6 +60,7 @@ class StyleGuide {
 		add_action( 'customize_register', array( &$this, 'setup_customizer' ) );
 		add_action( 'customize_register', array( &$this, 'customize_register' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_fonts' ) );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'dequeue_fonts' ), 99 );
 
 	}
 
@@ -80,12 +80,12 @@ class StyleGuide {
 
 		$file = plugin_dir_path( __FILE__ ) . 'theme-styles/' . $theme_name . '.php';
 
-		if ( file_exists( $file ) ) {
-			include( $file );
-		} else {
+		// if there's no template file for the current theme then load the default
+		if ( ! file_exists( $file ) ) {
 			$file = plugin_dir_path ( __FILE__ ) . 'theme-styles/_default.php';
-			include( $file );
 		}
+
+		include( $file );
 
 	}
 
@@ -122,6 +122,21 @@ class StyleGuide {
 
 		}
 
+	}
+
+
+	/**
+	 * If theres any preloaded fonts to dequeue then lets get rid of them
+	 */
+	function dequeue_fonts() {
+
+		$settings = $this->get_settings( 'dequeue' );
+
+		if ( $settings ) {
+			foreach( $settings as $style ) {
+				wp_dequeue_style( $style );
+			}
+		}
 	}
 
 
@@ -480,6 +495,10 @@ function styleguide_sanitize_select( $id ) {
 function styleguide_fonts() {
 
 	$fonts = array(
+		'Alegreya+Sans' => array(
+			'name' => 'Alegreya Sans',
+			'family' => '"Alegreya Sans", sans-serif',
+		),
 		'Droid+Sans' => array(
 			'name' => 'Droid Sans',
 			'family' => '"Droid Sans", sans-serif',

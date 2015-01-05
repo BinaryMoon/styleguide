@@ -172,4 +172,7 @@ add_theme_support( 'styleguide', array(
 		),
 	),
 	'css' => $css,
+	'dequeue' => array(
+		'twentythirteen-fonts',
+	),
 ) );

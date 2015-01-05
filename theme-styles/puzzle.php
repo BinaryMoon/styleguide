@@ -115,12 +115,16 @@ add_theme_support( 'styleguide', array(
 	'fonts' => array(
 		'headers' => array(
 			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Arial',
+			'default' => 'Alegreya+Sans',
 		),
 		'body' => array(
 			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Source+Sans+Pro',
+			'default' => 'Open+Sans',
 		),
 	),
 	'css' => $css,
+	'dequeue' => array(
+		'puzzle-font-open-sans',
+		'puzzle-font-alegrya',
+	)
 ) );
