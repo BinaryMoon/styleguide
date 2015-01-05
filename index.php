@@ -431,8 +431,13 @@ class StyleGuide {
 			$settings = $settings[0];
 		}
 
-		if ( null !== $key && isset( $settings[ $key ] ) ) {
-			return $settings[ $key ];
+		// check request for key
+		if ( null !== $key ) {
+			if ( isset( $settings[ $key ] ) ) {
+				return $settings[ $key ];
+			} else {
+				return false;
+			}
 		}
 
 		return $settings;
