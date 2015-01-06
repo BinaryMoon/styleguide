@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * add intelligent defaults for properties
  * check if the color control already exists and if not create it
  * behave better when there's already defined colours (eg with Twenty Fifteen)
+ * remove rules containing handlebars
+ * support for different font character sets
  */
 
 class StyleGuide {
@@ -215,6 +217,9 @@ class StyleGuide {
 	 */
 	function output_css( $css ) {
 
+		$css = trim( $css );
+		$start_css = $css;
+
 		// replace colours in the css template
 		foreach( $this->colors as $key => $color ) {
 			$css = str_replace( '{{color-' . $key . '}}', styleguide_sanitize_hex_color( $color ), $css );
@@ -225,11 +230,11 @@ class StyleGuide {
 			$css = str_replace( '{{font-' . $key . '}}', $font, $css );
 		}
 
-		$css = trim( $css );
-
-		// output css
-		echo '<!-- Styleguide styles -->' . "\r\n";
-		echo '<style>' . $css . '</style>';
+		// if the css has changed then output css
+		if ( $start_css != $css ) {
+			echo '<!-- Styleguide styles -->' . "\r\n";
+			echo '<style>' . $css . '</style>';
+		}
 
 	}
 
