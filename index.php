@@ -187,6 +187,9 @@ class StyleGuide {
 	 */
 	function customize_register( $wp_customize ) {
 
+		// change section title
+		$wp_customize->get_section( 'colors' )->title = __( 'Colors & Fonts', 'styleguide' );
+
 		$settings = $this->get_settings( 'colors' );
 
 		// make sure there's colors to change
@@ -203,9 +206,6 @@ class StyleGuide {
 		if ( get_theme_support( 'custom-header', 'wp-head-callback' ) === '_custom_background_cb' ) {
 			// $wp_customize->get_setting( 'header_textcolor' )->transport = 'refresh';
 		}
-
-		// change section title
-		$wp_customize->get_section( 'colors' )->title = __( 'Colors & Fonts', 'styleguide' );
 
 	}
 
