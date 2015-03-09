@@ -3,7 +3,7 @@
 Plugin Name: Styleguide
 Plugin URI: http://wordpress.org/plugins/styleguide/
 Description: Easily customise styles and fonts for the themes you use on your website.
-Version: 1.0.0
+Version: 1.1.0
 Author: BinaryMoon
 Author URI: http://www.binarymoon.co.uk
 License: GPLv2 or later
@@ -113,13 +113,13 @@ class StyleGuide {
 			// enqueue the fonts
 			if ( $fonts ) {
 				$query_args = array(
-					'family' => urlencode( implode( '|', $fonts ) ),
-					'subset' => urlencode( 'latin,latin-ext' ),
+					'family' => implode( '|', $fonts ),
+					'subset' => 'latin,latin-ext',
 				);
 
 				$fonts_url = add_query_arg( $query_args, '//fonts.googleapis.com/css' );
 
-				wp_enqueue_style( 'styleguide-fonts', $fonts_url, array(), null );
+				wp_enqueue_style( 'styleguide-fonts', $fonts_url );
 			}
 
 		}
@@ -172,8 +172,16 @@ class StyleGuide {
 
 		}
 
-		if ( ! empty( $settings['css'] ) ) {
-			$this->output_css( $settings['css'] );
+		$css = $settings['css'];
+
+		// add in custom css
+		$custom_css = get_theme_mod( 'styleguide_custom_css', '' );
+		if ( ! empty( $custom_css ) ) {
+			$css .= "\n\n" . $custom_css;
+		}
+
+		if ( ! empty( $css ) ) {
+			$this->output_css( $css );
 		}
 
 	}
@@ -233,8 +241,9 @@ class StyleGuide {
 		// if the css has changed then output css
 		if ( $start_css != $css ) {
 			echo '<!-- Styleguide styles -->' . "\r\n";
-			echo '<style>' . $css . '</style>';
+			echo '<style>' . wp_filter_nohtml_kses( $css ) . '</style>';
 		}
+
 
 	}
 
@@ -243,9 +252,9 @@ class StyleGuide {
 	 * process the colours and save them for later use
 	 *
 	 * @param type $colors
-	 * @param type $prefix
+	 * @param type $styleguide
 	 */
-	function process_colors( $prefix, $color1, $color2 = null ) {
+	function process_colors( $styleguide, $color1, $color2 = null ) {
 
 		if ( null !== $color2 ) {
 			$colors = new CSS_Color( styleguide_sanitize_hex_color( $color1 ), styleguide_sanitize_hex_color( $color2 ) );
@@ -253,13 +262,14 @@ class StyleGuide {
 			$colors = new CSS_Color( styleguide_sanitize_hex_color( $color1 ) );
 		}
 
-		$this->add_colors( $prefix . '-fg', $colors->fg );
-		$this->add_colors( $prefix . '-bg', $colors->bg );
+		$this->add_colors( $styleguide . '-fg', $colors->fg );
+		$this->add_colors( $styleguide . '-bg', $colors->bg );
 
 	}
 
 
 	/**
+	 * work out which fonts to use
 	 *
 	 * @return string
 	 */
@@ -302,15 +312,15 @@ class StyleGuide {
 	 * add colors to the global array so that they can be easily accessed
 	 *
 	 * @param type $colors
-	 * @param type $prefix
+	 * @param type $styleguide
 	 */
-	function add_colors( $prefix, $colors ) {
+	function add_colors( $styleguide, $colors ) {
 
 		foreach( $colors as $key => $color ) {
 			if ( $key == '0' ) {
 				$key = '-0';
 			}
-			$this->colors[ ($prefix . $key) ] = '#' . $color;
+			$this->colors[ ($styleguide . $key) ] = '#' . $color;
 		}
 
 	}
@@ -399,6 +409,25 @@ class StyleGuide {
 			}
 
 		}
+
+		// custom css
+		$wp_customize->add_section( 'styleguide_custom_css', array(
+			'title' => __( 'Custom CSS', 'styleguide' ),
+			'description' => __( 'New to CSS? Start with a beginner tutorial. Questions? Ask in the Themes and Templates forum.', 'styleguide' ),
+		) );
+
+		$wp_customize->add_setting( 'styleguide_custom_css', array(
+			'default' => '',
+			'capability' => 'edit_theme_options',
+			'sanitize_callback' => 'wp_filter_nohtml_kses',
+			'sanitize_js_callback' => 'wp_filter_nohtml_kses',
+		) );
+
+		$wp_customize->add_control( 'styleguide_custom_css', array(
+			'label' => __( 'Custom CSS', 'styleguide' ),
+			'section' => 'styleguide_custom_css',
+			'type' => 'textarea',
+		) );
 
 	}
 
@@ -505,15 +534,23 @@ function styleguide_sanitize_select( $id ) {
 function styleguide_fonts() {
 
 	$fonts = array(
-		'Alegreya+Sans' => array(
+		'Alegreya Sans' => array(
 			'name' => 'Alegreya Sans',
 			'family' => '"Alegreya Sans", sans-serif',
 		),
-		'Droid+Sans' => array(
+		'Arimo' => array(
+			'name' => 'Arimo',
+			'family' => 'Arimo, sans-serif',
+		),
+		'Bitter' => array(
+			'name' => 'Bitter',
+			'family' => 'Bitter, serif',
+		),
+		'Droid Sans' => array(
 			'name' => 'Droid Sans',
 			'family' => '"Droid Sans", sans-serif',
 		),
-		'Droid+Serif' => array(
+		'Droid Serif' => array(
 			'name' => 'Droid Serif',
 			'family' => '"Droid Serif", serif',
 		),
@@ -531,6 +568,14 @@ function styleguide_fonts() {
 			'name' => 'Lato',
 			'family' => 'Lato, sans-serif',
 		),
+		'Lora' => array(
+			'name' => 'Lora',
+			'family' => 'Lora, serif',
+		),
+		'Lobster' => array(
+			'name' => 'Lobster',
+			'family' => 'Lobster, serif',
+		),
 		'Merriweather' => array(
 			'name' => 'Merriweather',
 			'family' => 'Merriweather, serif',
@@ -539,23 +584,31 @@ function styleguide_fonts() {
 			'name' => 'Merriweather Sans',
 			'family' => '"Merriweather Sans", sans-serif',
 		),
-		'Noto+Sans' => array(
+		'Montserrat' => array(
+			'name' => 'Montserrat',
+			'family' => 'Montserrat, sans-serif',
+		),
+		'Noto Sans' => array(
 			'name' => 'Noto Sans',
 			'family' => '"Noto Sans", sans-serif',
 		),
-		'Noto+Serif' => array(
+		'Noto Serif' => array(
 			'name' => 'Noto Serif',
 			'family' => '"Noto Serif", serif',
 		),
-		'Open+Sans' => array(
+		'Open Sans' => array(
 			'name' => 'Open Sans',
 			'family' => '"Open Sans", sans-serif',
+		),
+		'Open Sans Condensed' => array(
+			'name' => 'Open Sans',
+			'family' => '"Open Sans Condensed", sans-serif',
 		),
 		'Oswald' => array(
 			'name' => 'Oswald',
 			'family' => 'Oswald, sans-serif',
 		),
-		'Pt+Sans' => array(
+		'Pt Sans' => array(
 			'name' => 'PT Sans',
 			'family' => '"PT Sans", sans-serif',
 		),
@@ -563,17 +616,25 @@ function styleguide_fonts() {
 			'name' => 'Raleway',
 			'family' => 'Raleway, sans-serif',
 		),
-		'Roboto+Slab' => array(
-			'name' => 'Roboto Slab',
-			'family' => '"Roboto Slab", serif',
-		),
 		'Roboto' => array(
 			'name' => 'Roboto',
 			'family' => 'Roboto, sans-serif',
 		),
-		'Source+Sans+Pro' => array(
+		'Roboto Condensed' => array(
+			'name' => 'Roboto Condensed',
+			'family' => '"Roboto Condensed", serif',
+		),
+		'Roboto Slab' => array(
+			'name' => 'Roboto Slab',
+			'family' => '"Roboto Slab", serif',
+		),
+		'Source Sans Pro' => array(
 			'name' => 'Source Sans Pro',
 			'family' => '"Source Sans Pro", sans-serif',
+		),
+		'Titillium Web' => array(
+			'name' => 'Titillium Web',
+			'family' => '"Titillium Web", sans-serif',
 		),
 		'Ubuntu' => array(
 			'name' => 'Ubuntu',
