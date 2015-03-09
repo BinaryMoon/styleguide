@@ -3,7 +3,7 @@
 Plugin Name: Styleguide
 Plugin URI: http://wordpress.org/plugins/styleguide/
 Description: Easily customise styles and fonts for the themes you use on your website.
-Version: 1.1.1
+Version: 1.1.0
 Author: BinaryMoon
 Author URI: http://www.binarymoon.co.uk
 License: GPLv2 or later
@@ -79,7 +79,7 @@ class StyleGuide {
 		$theme_name = $current_theme->get( 'Name' );
 		$theme_name = strtolower( $theme_name );
 		$theme_name = str_replace( ' ', '-', $theme_name );
-		
+
 		if( file_exists( get_stylesheet_directory() . '/theme-styles/' . $theme_name . '.php' ) ) { // Check in child theme (it its active) first for template .
 		    $file = get_stylesheet_directory() . '/theme-styles/' . $theme_name . '.php';
 		} elseif( file_exists( get_template_directory() . '/theme-styles/' . $theme_name . '.php' ) ) { // Next check in the active theme (if its not a child theme).
@@ -178,8 +178,16 @@ class StyleGuide {
 
 		}
 
-		if ( ! empty( $settings['css'] ) ) {
-			$this->output_css( $settings['css'] );
+		$css = $settings['css'];
+
+		// add in custom css
+		$custom_css = get_theme_mod( 'styleguide_custom_css', '' );
+		if ( ! empty( $custom_css ) ) {
+			$css .= "\n\n" . $custom_css;
+		}
+
+		if ( ! empty( $css ) ) {
+			$this->output_css( $css );
 		}
 
 	}
@@ -243,8 +251,9 @@ class StyleGuide {
 		// if the css has changed then output css
 		if ( $start_css != $css ) {
 			echo '<!-- Styleguide styles -->' . "\r\n";
-			echo '<style>' . $css . '</style>';
+			echo '<style>' . wp_filter_nohtml_kses( $css ) . '</style>';
 		}
+
 
 	}
 
@@ -253,9 +262,9 @@ class StyleGuide {
 	 * process the colours and save them for later use
 	 *
 	 * @param type $colors
-	 * @param type $prefix
+	 * @param type $styleguide
 	 */
-	function process_colors( $prefix, $color1, $color2 = null ) {
+	function process_colors( $styleguide, $color1, $color2 = null ) {
 
 		if ( null !== $color2 ) {
 			$colors = new CSS_Color( styleguide_sanitize_hex_color( $color1 ), styleguide_sanitize_hex_color( $color2 ) );
@@ -263,8 +272,8 @@ class StyleGuide {
 			$colors = new CSS_Color( styleguide_sanitize_hex_color( $color1 ) );
 		}
 
-		$this->add_colors( $prefix . '-fg', $colors->fg );
-		$this->add_colors( $prefix . '-bg', $colors->bg );
+		$this->add_colors( $styleguide . '-fg', $colors->fg );
+		$this->add_colors( $styleguide . '-bg', $colors->bg );
 
 	}
 
@@ -313,15 +322,15 @@ class StyleGuide {
 	 * add colors to the global array so that they can be easily accessed
 	 *
 	 * @param type $colors
-	 * @param type $prefix
+	 * @param type $styleguide
 	 */
-	function add_colors( $prefix, $colors ) {
+	function add_colors( $styleguide, $colors ) {
 
 		foreach( $colors as $key => $color ) {
 			if ( $key == '0' ) {
 				$key = '-0';
 			}
-			$this->colors[ ($prefix . $key) ] = '#' . $color;
+			$this->colors[ ($styleguide . $key) ] = '#' . $color;
 		}
 
 	}
@@ -410,6 +419,25 @@ class StyleGuide {
 			}
 
 		}
+
+		// custom css
+		$wp_customize->add_section( 'styleguide_custom_css', array(
+			'title' => __( 'Custom CSS', 'styleguide' ),
+			'description' => __( 'New to CSS? Start with a beginner tutorial. Questions? Ask in the Themes and Templates forum.', 'styleguide' ),
+		) );
+
+		$wp_customize->add_setting( 'styleguide_custom_css', array(
+			'default' => '',
+			'capability' => 'edit_theme_options',
+			'sanitize_callback' => 'wp_filter_nohtml_kses',
+			'sanitize_js_callback' => 'wp_filter_nohtml_kses',
+		) );
+
+		$wp_customize->add_control( 'styleguide_custom_css', array(
+			'label' => __( 'Custom CSS', 'styleguide' ),
+			'section' => 'styleguide_custom_css',
+			'type' => 'textarea',
+		) );
 
 	}
 
