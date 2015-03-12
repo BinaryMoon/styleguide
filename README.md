@@ -25,13 +25,18 @@ For full compatability theme support needs to be added by the theme author.
 
 Styleguide allows any theme to add support through the `add_theme_support` command. For examples check out the [included theme-styles](https://github.com/BinaryMoon/styleguide/tree/master/theme-styles).
 
+I have added an example of a basic implementation below. This code would be placed in your themes functions.php
+
 ```php
 function prefix_add_styleguide_support() {
-  // for properties check out the included theme styles linked above
+
+  // for properties check out the included theme styles as seen here:
+  // https://github.com/BinaryMoon/styleguide/tree/master/theme-styles
   $properties = array(
     ...
   );
   add_theme_support( 'styleguide', $properties );
+  
 }
 
 add_filter( 'after_setup_theme', 'prefix_add_styleguide_support' );
