@@ -1,0 +1,49 @@
+@border-color:#ddd;
+@canvas-white:#fff;
+@canvas-black:#000;
+
+@border-radius:4px;
+
+
+.styleguide-font-picker {
+	select {
+		display:none;
+	}
+
+	ul {
+		border:1px solid @border-color;
+		background:@canvas-white;
+		padding:2px;
+		border-radius:@border-radius;
+		margin:1px;
+		max-height:180px;
+		overflow:auto;
+		list-style-type:none;
+
+		li {
+			padding:2px 8px;
+			margin:0;
+			border-radius:(@border-radius / 2);
+			font-size:2em;
+			line-height:1.2em;
+
+			&.selected {
+				background:@border-color;
+				color:@canvas-black;
+			}
+
+			&:hover {
+				background:lighten( @border-color, 10% );
+			}
+		}
+	}
+}
+
+.styleguide-custom-dropdown {
+	select {
+		width:100%;
+	}
+	.customize-control-title {
+		display:none;
+	}
+}

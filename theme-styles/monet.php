@@ -1,32 +1,44 @@
 <?php
 /**
- * Theme:
- * Theme Url:
+ * Theme: Monet
+ * Theme Url: https://creativemarket.com/BinaryMoon/312560-Monet-WordPress-Portfolio-Theme?u=BinaryMoon
  */
 
 $css = <<<CSS
 	body {
 		font-family: {{font-body}};
+		font-weight: {{font-body-weight}};
 	}
 	h1, h2, h3, h4, h5, h6 {
 		font-family: {{font-headers}};
+		font-weight: {{font-headers-weight}};
 	}
 	a {
-		color: {{color-key-bg-0}};
+		color: {{color-link-bg-0}};
 	}
 	a:hover {
-		color: {{color-key-bg-2}};
+		color: {{color-link-bg-2}};
 	}
 	blockquote {
 		border-color: {{color-key-bg-0}};
 	}
-	{
+	.masthead {
 		background-color: {{color-key-bg-0}};
+		color: {{color-key-fg-0}};
+	}
+	.masthead a {
 		color: {{color-key-fg-0}};
 	}
 	{
 		background-color: {{color-key-bg-2}};
 		color: {{color-key-fg-2}};
+	}
+	.main .pagination span.current {
+		background-color: {{color-theme-background-bg-2}};
+		color: {{color-theme-background-fg-2}};
+	}
+		background-color: {{color-key-bg-0}};
+		color: {{color-key-fg-0}};
 	}
 CSS;
 
@@ -34,31 +46,25 @@ add_theme_support( 'styleguide', array(
 	'colors' => array(
 		'key' => array(
 			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#efb837',
+			'default' => '#ffffff',
 		),
 		'link' => array(
 			'label' => __( 'Link Color', 'styleguide' ),
-			'default' => '#bc360a',
-		),
-	),
-	'color-combos' => array(
-		'key-link' => array(
-			'foreground' => 'link',
-			'background' => 'key',
+			'default' => '#7f7f7f',
 		),
 	),
 	'fonts' => array(
 		'headers' => array(
 			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Arial',
+			'default' => 'Amiri',
 		),
 		'body' => array(
 			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Source+Sans+Pro',
+			'default' => 'Open+Sans',
 		),
 	),
 	'css' => $css,
 	'dequeue' => array(
-
+		'monet-fonts',
 	),
 ) );

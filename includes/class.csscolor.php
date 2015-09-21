@@ -34,23 +34,27 @@ class CSS_Color {
 	// $this->bg[0] is the bg color
 	// $this->bg['+1'..'+5'] are lighter colors
 	// $this->bg['-1'..'-5'] are darker colors
-	var $bg = array( );
+	var $bg = array();
+
 	// $this->fg = array of foreground colors.
 	// Each color corresponds to a background color.
-	var $fg = array( );
+	var $fg = array();
+
 	// store complementary colours based upon initial values
 	var $bgc = '';
 	var $fgc = '';
+
 	// brightDiff is the minimum brightness difference
 	// between the background and the foreground.
 	// Note: you should not change this directly,
 	// instead use setBrightDiff() and getBrightDiff()
-	var $minBrightDiff = 125;
+	var $minBrightDiff = 150;
+
 	// colorDiff is the minimum color difference
 	// between the background and the foreground.
 	// Note: you should not change this directly,
 	// instead use setColorDiff() and getColorDiff()
-	var $minColorDiff = 100;
+	var $minColorDiff = 500;
 
 	/**
 	 *

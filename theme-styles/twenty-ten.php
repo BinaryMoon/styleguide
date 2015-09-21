@@ -7,6 +7,7 @@
 $css = <<<CSS
 	body, input, textarea, .page-title span, .pingback a.url {
 		font-family: {{font-body}};
+		font-weight: {{font-body-weight}};
 	}
 	h3#comments-title, h3#reply-title, #access .menu, #access div.menu ul,
 	#cancel-comment-reply-link, .form-allowed-tags, #site-info, #site-title,
@@ -15,6 +16,7 @@ $css = <<<CSS
 	.entry-meta, .entry-title, .entry-utility, #respond label, .navigation,
 	.page-title, .pingback p, .reply, .widget-title, .wp-caption-text {
 		font-family: {{font-headers}};
+		font-weight: {{font-headers-weight}};
 	}
 	a:link, a:visited, a:active {
 		color: {{color-link-bg-0}};

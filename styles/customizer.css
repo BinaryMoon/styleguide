@@ -1,0 +1,33 @@
+.styleguide-font-picker select {
+  display: none;
+}
+.styleguide-font-picker ul {
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  padding: 2px;
+  border-radius: 4px;
+  margin: 1px;
+  max-height: 180px;
+  overflow: auto;
+  list-style-type: none;
+}
+.styleguide-font-picker ul li {
+  padding: 2px 8px;
+  margin: 0;
+  border-radius: 2px;
+  font-size: 2em;
+  line-height: 1.2em;
+}
+.styleguide-font-picker ul li.selected {
+  background: #dddddd;
+  color: #000000;
+}
+.styleguide-font-picker ul li:hover {
+  background: #f7f7f7;
+}
+.styleguide-custom-dropdown select {
+  width: 100%;
+}
+.styleguide-custom-dropdown .customize-control-title {
+  display: none;
+}

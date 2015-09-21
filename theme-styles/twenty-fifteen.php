@@ -11,6 +11,7 @@ $css = <<<CSS
 	.page-title,
 	.comments-title, .comment-reply-title {
 		font-family: {{font-body}};
+		font-weight: {{font-body-weight}};
 	}
 	blockquote cite,
 	blockquote small,
@@ -46,6 +47,7 @@ $css = <<<CSS
 	.wp-caption-text,
 	.gallery-caption {
 		font-family: {{font-title}};
+		font-weight: {{font-title-weight}};
 	}
 CSS;
 
