@@ -1,8 +1,8 @@
 === Styleguide - Custom Fonts and Colours ===
 Contributors: binarymoon
-Tags: customizer, css, color, colors, colour, colours, fonts
-Requires at least: 3.9
-Tested up to: 4.3
+Tags: customizer, css, color, colors, colour, colours, fonts, google fonts, localize, localization
+Requires at least: 4
+Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,9 @@ Quickly and easily edit fonts and colours in your WordPress themes using the Wor
 
 Perfect for giving your website a unique look without having to hire a designer or make code changes yourself.
 
-All default WordPress themes are fully supported and support for more themes will be added in the future. Other themes will be able to customize fonts.
+All default WordPress themes are fully supported and support for more themes will be added in the future. All other themes can customize fonts.
+
+Styleguide uses a carefully chosen selection of the top 45 Google Fonts to give you a lot of options for personalising your site.
 
 = Features =
 
@@ -26,14 +28,16 @@ All default WordPress themes are fully supported and support for more themes wil
 
 = Supported Character Sets =
 
-Styleguide supports fonts that have a variety of different character sets:
+Styleguide supports fonts that have a variety of different character sets. This makes selecting a font for your language super easy. The supported character sets are:
 
 * Cyrillic
-* Devangari
+* Devanagari
 * Greek
 * Hebrew
 * Latin
 * Vietnamese
+
+By default Styleguide uses Latin. To limit the font choice to those supporting your character set you should go to *Settings &rarr; General &rarr; Character Set* and select your set there.
 
 = Supported Themes =
 
@@ -52,7 +56,9 @@ Styleguide supports fonts that have a variety of different character sets:
 * [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen)
 * [Twenty Sixteen](https://wordpress.org/themes/twentysixteen)
 
-Developers can add support for their themes quite easily - see the 'How To' page for more info.
+Developers can add support for their themes quite easily - see the 'Other Notes' tab for more info.
+
+If you're in the market for a WordPress theme then you could check out my Premium GPL WordPress themes site here: http://prothemedesign.com/
 
 == How To ==
 
@@ -93,10 +99,13 @@ add_filter( 'styleguide_get_fonts', 'my_fonts' );`
 
 == Changelog ==
 
+= 1.4.1, 1.4.2 & 1.4.3 =
+* fix bugs introduced with character sets
+
 = 1.4 =
-* Add support for the next years default theme - Twenty Sixteen! :)
+* Add support for next years default theme - Twenty Sixteen (requires WP4.4)! :)
 * Add a link to the Kent theme - which is out now - https://wordpress.org/themes/kent
-* Option to select character set from 'Settings -> General'
+* Option to select character set from *Settings &rarr; General*
 * Filters available fonts according to supported character sets
 * Loads character sets as required
 

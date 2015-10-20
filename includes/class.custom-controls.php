@@ -20,6 +20,7 @@ class Styleguide_Dropdown_Fonts extends WP_Customize_Control {
 
 
 	/**
+	 * contstruct the widget
 	 *
 	 * @param type $manager
 	 * @param type $id
@@ -36,7 +37,8 @@ class Styleguide_Dropdown_Fonts extends WP_Customize_Control {
 
 
 	/**
-	 *
+	 * display a list of fonts as a select dropdown
+	 * will be converted by javascript to make a html list of fonts to select
 	 */
 	public function render_content() {
 
@@ -66,6 +68,8 @@ class Styleguide_Dropdown_Fonts extends WP_Customize_Control {
 	public function enqueue_scripts() {
 
 		if ( $this->params ) {
+
+			$fonts = array();
 
 			foreach( $this->params as $k => $v ) {
 				if ( ! empty( $k ) ) {
@@ -104,6 +108,7 @@ class Styleguide_Dropdown extends WP_Customize_Control {
 
 
 	/**
+	 * construct the widget
 	 *
 	 * @param type $manager
 	 * @param type $id
@@ -118,7 +123,7 @@ class Styleguide_Dropdown extends WP_Customize_Control {
 
 
 	/**
-	 *
+	 * display a standard text select dropdown
 	 */
 	public function render_content() {
 
@@ -129,9 +134,9 @@ class Styleguide_Dropdown extends WP_Customize_Control {
 		<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 		<select <?php $this->link(); ?> id="<?php echo $this->id; ?>">
 <?php
-	foreach( $this->params as $v ) {
+	foreach( $this->params as $k => $v ) {
 ?>
-			<option value="<?php echo esc_attr( $v ); ?>" <?php echo selected( $value, $v, false ); ?>><?php echo esc_html( $v ); ?></option>
+			<option value="<?php echo esc_attr( $k ); ?>" <?php echo selected( $value, $v, false ); ?>><?php echo esc_html( $v ); ?></option>
 <?php
 	}
 ?>

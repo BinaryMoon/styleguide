@@ -421,7 +421,11 @@ class StyleGuide {
 								'label' => $font[ 'label' ],
 								'section' => 'colors',
 								'settings' => $key,
-								'choices' => array( 'default', 'normal', 'bold' ),
+								'choices' => array(
+									'default' => __( 'default font weight', 'styleguide' ),
+									'normal' => __( 'normal font weight', 'styleguide' ),
+									'bold' => __( 'bold font weight', 'styleguide' ),
+								),
 								'priority' => $priority,
 							)
 						)
@@ -603,13 +607,13 @@ class StyleGuide {
 
 		$set = 'latin';
 		$sets = styleguide_get_character_sets();
-		$saved_set = styleguide_sanitize_character_set( get_option( 'styleguide_character_set' ) );
+		$saved_set = styleguide_sanitize_character_set( get_option( 'styleguide_character_set', '' ) );
 
 		if ( ! empty( $saved_set ) ) {
 			$set = $saved_set;
 		}
 
-		return $sets[ $saved_set ][ 'sets' ];
+		return $sets[ $set ][ 'sets' ];
 
 	}
 
@@ -618,16 +622,15 @@ class StyleGuide {
 
 		$processed = array();
 
-		$character_set = get_option( 'styleguide_character_set' );
 		$set = 'latin';
-		$saved_set = styleguide_sanitize_character_set( get_option( 'styleguide_character_set' ) );
+		$saved_set = styleguide_sanitize_character_set( get_option( 'styleguide_character_set', '' ) );
 
 		if ( ! empty( $saved_set ) ) {
 			$set = $saved_set;
 		}
 
 		foreach( $fonts as $k => $font ) {
-			if ( is_array( $font[ 'sets' ] ) && in_array( $saved_set, $font[ 'sets' ] ) ) {
+			if ( is_array( $font[ 'sets' ] ) && in_array( $set, $font[ 'sets' ] ) ) {
 				$processed[ $k ] = $font;
 			}
 		}
@@ -636,6 +639,21 @@ class StyleGuide {
 
 	}
 
+
+	/**
+	 * Reset all the properties
+	 * Mostly used for testing things
+	 */
+	function reset() {
+
+		delete_option( 'styleguide_character_set' );
+
+	}
+
 }
 
 $styleguide = new StyleGuide();
+
+//if ( WP_DEBUG ) {
+//$styleguide->reset();
+//}

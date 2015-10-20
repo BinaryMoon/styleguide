@@ -63,7 +63,7 @@ function styleguide_sanitize_select( $id ) {
  * @param string $set
  * @return string
  */
-function styleguide_sanitize_character_set( $set ) {
+function styleguide_sanitize_character_set( $set = '' ) {
 
 	$sets = styleguide_get_character_sets();
 
