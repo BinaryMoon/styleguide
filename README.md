@@ -14,6 +14,7 @@ A WordPress plugin that lets you edit colours and fonts in your theme.
 * [Twenty Fourteen](https://wordpress.org/themes/twentyfourteen)
 * [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen)
 * [Puzzle](https://creativemarket.com/BinaryMoon/108641-Puzzle-Responsive-WordPress-Theme?u=BinaryMoon)
+* [Adaline](https://themetry.com/shop/adaline/)
 
 # Unsupported Themes
 
