@@ -68,10 +68,6 @@ $css = <<<CSS
 	.featured-row {
 		border-color: {{color-key-bg-0}};
 	}
-	.site-branding:after,
-	.site-info:before {
-		font-weight: 100;
-	}
 CSS;
 add_theme_support( 'styleguide', array(
 	'colors' => array(
