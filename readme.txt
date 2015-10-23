@@ -48,6 +48,7 @@ By default Styleguide uses Latin. To limit the font choice to those supporting y
 * [Monet](https://creativemarket.com/BinaryMoon/312560-Monet-WordPress-Portfolio-Theme?u=BinaryMoon)
 * [Mimbo Pro](https://creativemarket.com/BinaryMoon/111465-Mimbo-Pro-WordPress-Theme?u=BinaryMoon)
 * [Opti](https://creativemarket.com/BinaryMoon/9918-Opti-Responsive-WordPress-Theme?u=BinaryMoon)
+* [Adaline](https://themetry.com/shop/adaline/)
 * [Twenty Ten](https://wordpress.org/themes/twentyten)
 * [Twenty Eleven](https://wordpress.org/themes/twentyeleven)
 * [Twenty Twelve](https://wordpress.org/themes/twentytwelve)
