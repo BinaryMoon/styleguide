@@ -59,25 +59,28 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Lato',
+add_theme_support(
+	'styleguide',
+	array(
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Lato',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Lato',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Lato',
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#24890d',
+			),
 		),
-	),
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#24890d',
+		'css' => $css,
+		'dequeue' => array(
+			'twentyfourteen-lato',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'twentyfourteen-lato',
 	)
-) );
+);

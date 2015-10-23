@@ -49,25 +49,28 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#2980b9',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#2980b9',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Noto+Serif',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Noto+Serif',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Noto+Serif',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Noto+Serif',
+		'css' => $css,
+		'dequeue' => array(
+			'broadsheet-style-neuton',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'broadsheet-style-neuton',
-	),
-) );
+	)
+);

@@ -97,36 +97,39 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#2ecc71',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#2ecc71',
+			),
+			'link' => array(
+				'label' => __( 'Link Color', 'styleguide' ),
+				'default' => '#2ecc71',
+			),
 		),
-		'link' => array(
-			'label' => __( 'Link Color', 'styleguide' ),
-			'default' => '#2ecc71',
+		'color-combos' => array(
+			'background-link' => array(
+				'foreground' => 'link',
+				'background' => 'theme-background',
+			),
 		),
-	),
-	'color-combos' => array(
-		'background-link' => array(
-			'foreground' => 'link',
-			'background' => 'theme-background',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Alegreya+Sans',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Open+Sans',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Alegreya+Sans',
+		'css' => $css,
+		'dequeue' => array(
+			'puzzle-font-open-sans',
+			'puzzle-font-alegrya',
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Open+Sans',
-		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'puzzle-font-open-sans',
-		'puzzle-font-alegrya',
 	)
-) );
+);

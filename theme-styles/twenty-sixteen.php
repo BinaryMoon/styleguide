@@ -30,19 +30,22 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'fonts' => array(
-		'title' => array(
-			'label' => __( 'Title Font', 'styleguide' ),
-			'default' => 'Merriweather Sans',
+add_theme_support(
+	'styleguide',
+	array(
+		'fonts' => array(
+			'title' => array(
+				'label' => __( 'Title Font', 'styleguide' ),
+				'default' => 'Merriweather Sans',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Montserrat',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Montserrat',
+		'css' => $css,
+		'dequeue' => array(
+			'twentysixteen-fonts',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'twentysixteen-fonts',
-	),
-) );
+	)
+);

@@ -45,7 +45,7 @@ $css = <<<CSS
 	.comment-reply-title  {
 		background-color: {{color-key-bg-0}};
 	}
-	.site-header > .logo-letter { 
+	.site-header > .logo-letter {
 		color: {{color-key-bg-0}};
 	}
 	.posts-navigation a,

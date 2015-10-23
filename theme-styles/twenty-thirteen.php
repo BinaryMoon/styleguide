@@ -138,43 +138,46 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#efb837',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#efb837',
+			),
+			'background' => array(
+				'label' => __( 'Background Color', 'styleguide' ),
+				'default' => '#fff',
+			),
+			'link' => array(
+				'label' => __( 'Link Color', 'styleguide' ),
+				'default' => '#bc360a',
+			),
 		),
-		'background' => array(
-			'label' => __( 'Background Color', 'styleguide' ),
-			'default' => '#fff',
+		'color-combos' => array(
+			'background-link' => array(
+				'foreground' => 'link',
+				'background' => 'background',
+			),
+			'key-link' => array(
+				'foreground' => 'link',
+				'background' => 'key',
+			),
 		),
-		'link' => array(
-			'label' => __( 'Link Color', 'styleguide' ),
-			'default' => '#bc360a',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Arial',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Source+Sans+Pro',
+			),
 		),
-	),
-	'color-combos' => array(
-		'background-link' => array(
-			'foreground' => 'link',
-			'background' => 'background',
+		'css' => $css,
+		'dequeue' => array(
+			'twentythirteen-fonts',
 		),
-		'key-link' => array(
-			'foreground' => 'link',
-			'background' => 'key',
-		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Arial',
-		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Source+Sans+Pro',
-		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'twentythirteen-fonts',
-	),
-) );
+	)
+);

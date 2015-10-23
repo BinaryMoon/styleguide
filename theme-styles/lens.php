@@ -41,25 +41,28 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#81261d',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#81261d',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Roboto+Slab',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Roboto+Slab',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Roboto+Slab',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Roboto+Slab',
+		'css' => $css,
+		'dequeue' => array(
+			'lens-roboto-slab',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'lens-roboto-slab',
-	),
-) );
+	)
+);

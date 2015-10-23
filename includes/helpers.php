@@ -1,11 +1,14 @@
 <?php
-
+/**
+ * Reusable helper functions
+ * @package styleguide
+ */
 
 /**
- * sanitize a hexadecimal colour
+ * Sanitize a hexadecimal colour
  *
- * @param type $color
- * @return string
+ * @param hex $color Colour to sanitize.
+ * @return string Color.
  */
 function styleguide_sanitize_hex_color( $color ) {
 
@@ -26,7 +29,7 @@ function styleguide_sanitize_hex_color( $color ) {
 
 
 /**
- * make sure the value returned is in the fonts array
+ * Make sure the value returned is in the fonts array
  *
  * @param type $id
  * @return type
@@ -77,7 +80,7 @@ function styleguide_sanitize_character_set( $set = '' ) {
 
 
 /**
- * list the available font character sets
+ * List the available font character sets
  *
  * @return array
  */

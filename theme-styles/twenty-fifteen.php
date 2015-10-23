@@ -51,19 +51,22 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'fonts' => array(
-		'title' => array(
-			'label' => __( 'Title Font', 'styleguide' ),
-			'default' => 'Noto+Sans',
+add_theme_support(
+	'styleguide',
+	array(
+		'fonts' => array(
+			'title' => array(
+				'label' => __( 'Title Font', 'styleguide' ),
+				'default' => 'Noto+Sans',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Noto+Serif',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Noto+Serif',
+		'css' => $css,
+		'dequeue' => array(
+			'twentyfifteen-fonts',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'twentyfifteen-fonts',
-	),
-) );
+	)
+);

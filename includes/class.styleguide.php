@@ -1,4 +1,9 @@
 <?php
+/**
+ * The Styleguide class
+ *
+ * @package styleguide
+ */
 
 /**
  * The Styleguide class
@@ -7,19 +12,31 @@
  */
 class StyleGuide {
 
+	/**
+	 * Store the generated colours
+	 * @var array Stores colours
+	 */
 	private $colors = array();
 
+	/**
+	 * Store the processed fonts
+	 * @var array List of fonts
+	 */
 	private $fonts = array();
 
+	/**
+	 * The current version for the theme.
+	 * @var float the curren file version number.
+	 */
 	private $version = '1.4';
 
 
 	/**
-	 * initialize everything
+	 * Initialize everything
 	 */
 	public function __construct() {
 
-		// prevent duplication
+		// Prevent duplication.
 		global $styleguide;
 
 		if ( isset( $styleguide ) ) {
@@ -41,9 +58,7 @@ class StyleGuide {
 
 
 	/**
-	 * include theme compatability file if it exists
-	 *
-	 * @param type $theme_name
+	 * Include theme compatability file if it exists
 	 */
 	function check_compat() {
 
@@ -55,7 +70,7 @@ class StyleGuide {
 
 		$file = plugin_dir_path( __FILE__ ) . '../theme-styles/' . $theme_name . '.php';
 
-		// if there's no template file for the current theme then load the default
+		// If there's no template file for the current theme then load the default.
 		if ( ! file_exists( $file ) ) {
 			$file = plugin_dir_path( __FILE__ ) . '../theme-styles/_default.php';
 		}
@@ -74,16 +89,16 @@ class StyleGuide {
 
 		$settings = $this->get_settings();
 
-		// make sure there's fonts to change
-		if ( empty( $settings[ 'fonts' ] ) ) {
+		// Make sure there's fonts to change.
+		if ( empty( $settings['fonts'] ) ) {
 			return;
 		}
 
-		if ( $settings[ 'fonts' ] ) {
+		if ( $settings['fonts'] ) {
 
 			$fonts = $this->process_fonts();
 
-			// enqueue the fonts
+			// Enqueue the fonts.
 			if ( $fonts ) {
 				$query_args = array(
 					'family' => implode( '|', $fonts ),
@@ -94,9 +109,7 @@ class StyleGuide {
 
 				wp_enqueue_style( 'styleguide-fonts', $fonts_url );
 			}
-
 		}
-
 	}
 
 
@@ -108,7 +121,7 @@ class StyleGuide {
 		$settings = $this->get_settings( 'dequeue' );
 
 		if ( $settings ) {
-			foreach( $settings as $style ) {
+			foreach ( $settings as $style ) {
 				wp_dequeue_style( $style );
 			}
 		}
@@ -117,67 +130,66 @@ class StyleGuide {
 
 
 	/**
-	 * output the css styles for the current theme
+	 * Output the css styles for the current theme
 	 */
 	function process_styles() {
 
 		$settings = $this->get_settings();
 
-		if ( ! empty( $settings[ 'colors' ] ) ) {
+		if ( ! empty( $settings['colors'] ) ) {
 
 			include_once( 'class.csscolor.php' );
 
-			// if a background color is set
+			// If a background color is set.
 			if ( current_theme_supports( 'custom-background' ) ) {
 				$this->process_colors( 'theme-background', get_background_color() );
 			}
 
-			// other custom colors
-			foreach( $settings[ 'colors' ] as $color_key => $color ) {
-				$this->process_colors( $color_key, get_theme_mod( 'styleguide_color_' . $color_key, $color[ 'default' ] ) );
+			// Other custom colors.
+			foreach ( $settings['colors'] as $color_key => $color ) {
+				$this->process_colors( $color_key, get_theme_mod( 'styleguide_color_' . $color_key, $color['default'] ) );
 			}
 
-			// if there's any color combos then do them too
-			if ( ! empty( $settings[ 'color-combos' ] ) ) {
-				foreach( $settings[ 'color-combos' ] as $combo_key => $combo ) {
-					$this->process_colors( $combo_key, $this->colors[ $combo[ 'background' ] . '-bg-0' ], $this->colors[ $combo[ 'foreground' ] . '-bg-0' ] );
+			// If there's any color combos then do them too.
+			if ( ! empty( $settings['color-combos'] ) ) {
+				foreach ( $settings['color-combos'] as $combo_key => $combo ) {
+					$this->process_colors( $combo_key, $this->colors[ $combo['background'] . '-bg-0' ], $this->colors[ $combo['foreground'] . '-bg-0' ] );
 				}
 			}
-
 		}
 
-		if ( ! empty( $settings[ 'css' ] ) ) {
-			$this->output_css( $settings[ 'css' ] );
+		if ( ! empty( $settings['css'] ) ) {
+			$this->output_css( $settings['css'] );
 		}
 
 	}
 
 
 	/**
-	 * change transport type for default customizer types
+	 * Change transport type for default customizer types
 	 * means users can make use of colours for more things
 	 *
-	 * @param type $wp_customize
+	 * @param object $wp_customize WP_Customize object.
 	 */
 	function customize_register( $wp_customize ) {
 
-		// change section title
+		// Change section title.
 		$wp_customize->get_section( 'colors' )->title = __( 'Colors & Fonts', 'styleguide' );
 
 		$settings = $this->get_settings( 'colors' );
 
-		// make sure there's colors to change
+		// Make sure there's colors to change.
 		if ( empty( $settings ) ) {
 			return;
 		}
 
-		// make custom background refresh the page rather than refresh with javascript
-		if ( get_theme_support( 'custom-background', 'wp-head-callback' ) === '_custom_background_cb' ) {
+		// Make custom background refresh the page rather than refresh with javascript.
+		if ( '_custom_background_cb' === get_theme_support( 'custom-background', 'wp-head-callback' ) ) {
 			$wp_customize->get_setting( 'background_color' )->transport = 'refresh';
 		}
 
-		// make custom header refresh the page rather than refresh with javascript
-		if ( get_theme_support( 'custom-header', 'wp-head-callback' ) === '_custom_background_cb' ) {
+		// Make custom header refresh the page rather than refresh with javascript.
+		if ( '_custom_background_cb' === get_theme_support( 'custom-header', 'wp-head-callback' ) ) {
 			// $wp_customize->get_setting( 'header_textcolor' )->transport = 'refresh';
 		}
 
@@ -185,9 +197,9 @@ class StyleGuide {
 
 
 	/**
-	 * print css to the head
+	 * Print css to the head
 	 *
-	 * @param type $css
+	 * @param string $css CSS to output.
 	 */
 	function output_css( $css ) {
 
@@ -197,11 +209,8 @@ class StyleGuide {
 		$css = $this->replace_colours( $css );
 		$css = $this->replace_fonts( $css );
 
-		// strip empty tags
-
-
-		// if the css has changed then output css
-		if ( $start_css != $css ) {
+		// If the css has changed then output css.
+		if ( $start_css !== $css ) {
 			echo '<!-- Styleguide styles -->' . "\r\n";
 			echo '<style>' . stripslashes( wp_filter_nohtml_kses( $css ) ) . '</style>';
 		}
@@ -212,12 +221,12 @@ class StyleGuide {
 	/**
 	 * Insert colours into css
 	 *
-	 * @param type $css
-	 * @return type
+	 * @param string $css CSS template to do colour insertion in.
+	 * @return string
 	 */
 	function replace_colours( $css ) {
 
-		foreach( $this->colors as $key => $color ) {
+		foreach ( $this->colors as $key => $color ) {
 			$css = str_replace( '{{color-' . $key . '}}', styleguide_sanitize_hex_color( $color ), $css );
 		}
 
@@ -229,16 +238,16 @@ class StyleGuide {
 	/**
 	 * Insert fonts into css
 	 *
-	 * @param type $css
-	 * @return type
+	 * @param string $css CSS to insert the fonts into.
+	 * @return string
 	 */
 	function replace_fonts( $css ) {
 
-		foreach( $this->fonts as $key => $font ) {
-			$css = str_replace( '{{font-' . $key . '}}', $font[ 'family' ], $css );
+		foreach ( $this->fonts as $key => $font ) {
+			$css = str_replace( '{{font-' . $key . '}}', $font['family'], $css );
 
-			if ( ! empty( $font[ 'weight' ] ) && 'default' !== $font[ 'weight' ] ) {
-				$css = str_replace( '{{font-' . $key . '-weight}}', $font[ 'weight' ], $css );
+			if ( ! empty( $font['weight'] ) && 'default' !== $font['weight'] ) {
+				$css = str_replace( '{{font-' . $key . '-weight}}', $font['weight'], $css );
 			}
 		}
 
@@ -248,10 +257,11 @@ class StyleGuide {
 
 
 	/**
-	 * process the colours and save them for later use
+	 * Process the colours and save them for later use
 	 *
-	 * @param type $colors
-	 * @param type $styleguide
+	 * @param string $styleguide Style id.
+	 * @param color  $color1 Main colour to contrast with.
+	 * @param color  $color2 Optional background colour to do the comparison with.
 	 */
 	function process_colors( $styleguide, $color1, $color2 = null ) {
 
@@ -268,7 +278,7 @@ class StyleGuide {
 
 
 	/**
-	 * work out which fonts to use
+	 * Work out which fonts to use
 	 *
 	 * @return string
 	 */
@@ -278,54 +288,50 @@ class StyleGuide {
 		$available_fonts = styleguide_fonts();
 		$settings = $this->get_settings();
 
-		if ( empty( $settings[ 'fonts' ] ) ) {
+		if ( empty( $settings['fonts'] ) ) {
 			return $fonts;
 		}
 
-		// load chosen fonts
-		foreach( $settings[ 'fonts' ] as $font_key => $font ) {
+		// Load chosen fonts.
+		foreach ( $settings['fonts'] as $font_key => $font ) {
 
-			// make sure it's a google font and not a system font
-			// by default all fonts are google fonts
-			if ( ! isset( $font[ 'google' ] ) || true === $font[ 'google' ] ) {
+			// Make sure it's a google font and not a system font
+			// by default all fonts are google fonts.
+			if ( ! isset( $font['google'] ) || true === $font['google'] ) {
 
 				$key = 'styleguide_font_' . $font_key;
-				$_font = get_theme_mod( $key, $font[ 'default' ] );
+				$_font = get_theme_mod( $key, $font['default'] );
 				$_font_weight = get_theme_mod( $key . '_weight', 'default' );
 
-				// store font for use later
-				if ( isset( $available_fonts[ $font[ 'default' ] ] ) ) {
-					$this->fonts[ $font_key ][ 'family' ] = $available_fonts[ $font[ 'default' ] ][ 'family' ];
+				// Store font for use later.
+				if ( isset( $available_fonts[ $font['default'] ] ) ) {
+					$this->fonts[ $font_key ]['family'] = $available_fonts[ $font['default'] ]['family'];
 				}
 
 				if ( ! empty( $available_fonts[ $_font ] ) ) {
 
-					// add weights if required
+					// Add weights if required.
 					$weight = ':400,700';
-					if ( isset( $available_fonts[ $_font ][ 'weight' ] ) ) {
-						$weight = ':' . $available_fonts[ $_font ][ 'weight' ];
-						// ensure weights aren't loaded if they don't exist
+					if ( isset( $available_fonts[ $_font ]['weight'] ) ) {
+						$weight = ':' . $available_fonts[ $_font ]['weight'];
+						// Ensure weights aren't loaded if they don't exist.
 						if ( ':' === $weight ) {
 							$weight = '';
 						}
 					}
 
-					// add fallback fonts in case Google Fonts don't load
-					$available_fonts[ $_font ][ 'family' ] = str_replace( ', serif', ', Georgia, serif', $available_fonts[ $_font ][ 'family' ] );
-					$available_fonts[ $_font ][ 'family' ] = str_replace( ', san-serif', ', Arial, sans-serif', $available_fonts[ $_font ][ 'family' ] );
+					// Add fallback fonts in case Google Fonts don't load.
+					$available_fonts[ $_font ]['family'] = str_replace( ', serif', ', Georgia, serif', $available_fonts[ $_font ]['family'] );
+					$available_fonts[ $_font ]['family'] = str_replace( ', san-serif', ', Arial, sans-serif', $available_fonts[ $_font ]['family'] );
 
-					// add weight to font
+					// Add weight to font.
 					$fonts[ $_font ] = $_font . $weight;
 
-					// set css output
-					$this->fonts[ $font_key ][ 'family' ] = $available_fonts[ $_font ][ 'family' ];
-					$this->fonts[ $font_key ][ 'weight' ] = $_font_weight;
+					// Set CSS output.
+					$this->fonts[ $font_key ]['family'] = $available_fonts[ $_font ]['family'];
+					$this->fonts[ $font_key ]['weight'] = $_font_weight;
 				}
-
-
-
 			}
-
 		}
 
 		return $fonts;
@@ -334,14 +340,14 @@ class StyleGuide {
 
 
 	/**
-	 * add colors to the global array so that they can be easily accessed
+	 * Add colors to the global array so that they can be easily accessed
 	 *
-	 * @param type $colors
 	 * @param type $styleguide
+	 * @param type $colors
 	 */
 	function add_colors( $styleguide, $colors ) {
 
-		foreach( $colors as $key => $color ) {
+		foreach ( $colors as $key => $color ) {
 
 			if ( $key == '0' ) {
 				$key = '-0';
@@ -355,7 +361,9 @@ class StyleGuide {
 
 
 	/**
-	 * setup the customizer control panel
+	 * Setup the customizer control panel
+	 *
+	 * @param object $wp_customize The $wp_customize object.
 	 */
 	function setup_customizer( $wp_customize ) {
 
@@ -363,24 +371,24 @@ class StyleGuide {
 
 		if ( $settings ) {
 
-			// include custom controls
+			// Include custom controls.
 			include_once( 'class.custom-controls.php' );
 
 			$priority = 0;
 
-			// add font controls
-			if ( ! empty( $settings[ 'fonts' ] ) ) {
+			// Add font controls.
+			if ( ! empty( $settings['fonts'] ) ) {
 
-				// loop through fonts and output settings and controls
-				foreach( $settings[ 'fonts' ] as $font_key => $font ) {
+				// Loop through fonts and output settings and controls.
+				foreach ( $settings['fonts'] as $font_key => $font ) {
 
 					$key = 'styleguide_font_' . $font_key;
 
-					// font face
+					// Font face.
 					$wp_customize->add_setting(
 						$key,
 						array(
-							'default' => $font[ 'default' ],
+							'default' => $font['default'],
 							'capability' => 'edit_theme_options',
 							'sanitize_callback' => 'styleguide_sanitize_fonts',
 						)
@@ -391,7 +399,7 @@ class StyleGuide {
 							$wp_customize,
 							$key,
 							array(
-								'label' => $font[ 'label' ],
+								'label' => $font['label'],
 								'section' => 'colors',
 								'settings' => $key,
 								'choices' => $this->get_fonts(),
@@ -400,8 +408,7 @@ class StyleGuide {
 						)
 					);
 
-					// font weight
-
+					// Font weight.
 					$key = 'styleguide_font_' . $font_key . '_weight';
 
 					$wp_customize->add_setting(
@@ -418,7 +425,7 @@ class StyleGuide {
 							$wp_customize,
 							$key,
 							array(
-								'label' => $font[ 'label' ],
+								'label' => $font['label'],
 								'section' => 'colors',
 								'settings' => $key,
 								'choices' => array(
@@ -434,23 +441,20 @@ class StyleGuide {
 					$priority ++;
 
 				}
-
 			}
 
-			// add color controls
-			if ( ! empty( $settings[ 'colors' ] ) ) {
+			// Add color controls.
+			if ( ! empty( $settings['colors'] ) ) {
 
-				// does the color control already exist (through background and header colour customization?
-				// if not then create the control - else reuse the existing one
-
-
-				// loop through colours and output controls
-				foreach( $settings[ 'colors' ] as $color_key => $color ) {
+				// Does the color control already exist (through background and header colour customization?
+				// if not then create the control - else reuse the existing one.
+				// Loop through colours and output controls.
+				foreach ( $settings['colors'] as $color_key => $color ) {
 
 					$key = 'styleguide_color_' . $color_key;
 
 					$wp_customize->add_setting( $key, array(
-						'default' => $color[ 'default' ],
+						'default' => $color['default'],
 						'capability' => 'edit_theme_options',
 						'sanitize_callback' => 'styleguide_sanitize_hex_color',
 					) );
@@ -460,7 +464,7 @@ class StyleGuide {
 							$wp_customize,
 							$key,
 							array(
-								'label' => $color[ 'label' ],
+								'label' => $color['label'],
 								'section' => 'colors',
 								'settings' => $key,
 								'priority' => $priority,
@@ -471,17 +475,13 @@ class StyleGuide {
 					$priority ++;
 
 				}
-
-
 			}
-
 		}
-
 	}
 
 
 	/**
-	 * return the available fonts
+	 * Return the available fonts
 	 *
 	 * @return type
 	 */
@@ -496,7 +496,7 @@ class StyleGuide {
 			),
 		);
 
-		foreach( $_fonts as $key => $font ) {
+		foreach ( $_fonts as $key => $font ) {
 			$fonts[ $key ] = $font;
 		}
 
@@ -506,9 +506,9 @@ class StyleGuide {
 
 
 	/**
-	 * get the settings for the theme with optional key
+	 * Get the settings for the theme with optional key
 	 *
-	 * @param type $key
+	 * @param string $key Settings key to return.
 	 */
 	function get_settings( $key = null ) {
 
@@ -518,7 +518,7 @@ class StyleGuide {
 			$settings = $settings[0];
 		}
 
-		// check request for key
+		// Check request for key.
 		if ( null !== $key ) {
 			if ( isset( $settings[ $key ] ) ) {
 				return $settings[ $key ];
@@ -585,9 +585,9 @@ class StyleGuide {
 ?>
 	<select id="styleguide_character_set" name="styleguide_character_set">
 <?php
-		foreach( $sets as $k => $set ) {
+		foreach ( $sets as $k => $set ) {
 ?>
-		<option value="<?php echo esc_attr( $k ); ?>" <?php selected( $k, get_option( 'styleguide_character_set' ) ); ?>><?php echo $set[ 'name' ]; ?></option>
+		<option value="<?php echo esc_attr( $k ); ?>" <?php selected( $k, get_option( 'styleguide_character_set' ) ); ?>><?php echo $set['name']; ?></option>
 <?php
 		}
 ?>
@@ -613,11 +613,16 @@ class StyleGuide {
 			$set = $saved_set;
 		}
 
-		return $sets[ $set ][ 'sets' ];
+		return $sets[ $set ]['sets'];
 
 	}
 
 
+	/**
+	 * List of fonts to process
+	 * @param array $fonts List of fonts.
+	 * @return array
+	 */
 	function filter_font_character_sets( $fonts ) {
 
 		$processed = array();
@@ -629,8 +634,8 @@ class StyleGuide {
 			$set = $saved_set;
 		}
 
-		foreach( $fonts as $k => $font ) {
-			if ( is_array( $font[ 'sets' ] ) && in_array( $set, $font[ 'sets' ] ) ) {
+		foreach ( $fonts as $k => $font ) {
+			if ( is_array( $font['sets'] ) && in_array( $set, $font['sets'] ) ) {
 				$processed[ $k ] = $font;
 			}
 		}
@@ -649,7 +654,6 @@ class StyleGuide {
 		delete_option( 'styleguide_character_set' );
 
 	}
-
 }
 
 $styleguide = new StyleGuide();

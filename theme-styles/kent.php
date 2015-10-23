@@ -70,26 +70,29 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#4998cc',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#4998cc',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Open+Sans',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Open+Sans',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Roboto+Slab',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Roboto+Slab',
+		'css' => $css,
+		'dequeue' => array(
+			'kent-font-serif',
+			'kent-font-sans-serif',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'kent-font-serif',
-		'kent-font-sans-serif'
-	),
-) );
+	)
+);

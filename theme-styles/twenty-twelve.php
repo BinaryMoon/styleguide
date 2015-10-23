@@ -21,25 +21,28 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'link' => array(
-			'label' => __( 'Link Color', 'styleguide' ),
-			'default' => '#21759b',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'link' => array(
+				'label' => __( 'Link Color', 'styleguide' ),
+				'default' => '#21759b',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Helvetica',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Helvetica',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Helvetica',
+			),
 		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Helvetica',
+		'css' => $css,
+		'dequeue' => array(
+			'twentytwelve-fonts',
 		),
-	),
-	'css' => $css,
-	'dequeue' => array(
-		'twentytwelve-fonts',
-	),
-) );
+	)
+);

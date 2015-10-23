@@ -50,32 +50,35 @@ $css = <<<CSS
 	}
 CSS;
 
-add_theme_support( 'styleguide', array(
-	'colors' => array(
-		'key' => array(
-			'label' => __( 'Key Color', 'styleguide' ),
-			'default' => '#000',
+add_theme_support(
+	'styleguide',
+	array(
+		'colors' => array(
+			'key' => array(
+				'label' => __( 'Key Color', 'styleguide' ),
+				'default' => '#000',
+			),
+			'link' => array(
+				'label' => __( 'Link Color', 'styleguide' ),
+				'default' => '#0066cc',
+			),
 		),
-		'link' => array(
-			'label' => __( 'Link Color', 'styleguide' ),
-			'default' => '#0066cc',
+		'color-combos' => array(
+			'key-link' => array(
+				'foreground' => 'link',
+				'background' => 'key',
+			),
 		),
-	),
-	'color-combos' => array(
-		'key-link' => array(
-			'foreground' => 'link',
-			'background' => 'key',
+		'fonts' => array(
+			'headers' => array(
+				'label' => __( 'Header Font', 'styleguide' ),
+				'default' => 'Helvetica',
+			),
+			'body' => array(
+				'label' => __( 'Body Font', 'styleguide' ),
+				'default' => 'Georgia',
+			),
 		),
-	),
-	'fonts' => array(
-		'headers' => array(
-			'label' => __( 'Header Font', 'styleguide' ),
-			'default' => 'Helvetica',
-		),
-		'body' => array(
-			'label' => __( 'Body Font', 'styleguide' ),
-			'default' => 'Georgia',
-		),
-	),
-	'css' => $css,
-) );
+		'css' => $css,
+	)
+);
