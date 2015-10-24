@@ -59,7 +59,7 @@ By default Styleguide uses Latin. To limit the font choice to those supporting y
 
 Developers can add support for their themes quite easily - see the 'Other Notes' tab for more info.
 
-If you're in the market for a WordPress theme then you could check out my Premium GPL WordPress themes site here: http://prothemedesign.com/
+If you're in the market for a WordPress theme then you could check out my Premium GPL WordPress themes site here: https://prothemedesign.com/
 
 == How To ==
 
@@ -99,6 +99,11 @@ add_filter( 'styleguide_get_fonts', 'my_fonts' );`
 2. Twenty Thirteen with some alternate colours
 
 == Changelog ==
+
+= 1.5 =
+* Various code and security improvements
+* Add support for Adaline theme
+* Improve Monet theme colours
 
 = 1.4.1, 1.4.2 & 1.4.3 =
 * fix bugs introduced with character sets
