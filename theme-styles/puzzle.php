@@ -2,6 +2,8 @@
 /**
  * Theme: Puzzle
  * Theme Url: https://creativemarket.com/BinaryMoon/108641-Puzzle-Responsive-WordPress-Theme?u=BinaryMoon
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS

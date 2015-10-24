@@ -2,6 +2,8 @@
 /**
  * Theme: Adaline
  * Theme Url: https://themetry.com/shop/adaline/
+ *
+ * @package: styleguide
  */
 $css = <<<CSS
 	body,

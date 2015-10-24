@@ -2,6 +2,8 @@
 /**
  * Theme: Broadsheet
  * Theme Url: https://creativemarket.com/BinaryMoon/108643-Broadsheet-Newspaper-Theme?u=BinaryMoon
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS

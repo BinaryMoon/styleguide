@@ -2,6 +2,8 @@
 /**
  * Theme: Lens
  * Theme Url: https://creativemarket.com/BinaryMoon/108642-Lens-Responsive-Photography-Theme?u=BinaryMoon
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS

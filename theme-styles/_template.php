@@ -2,6 +2,8 @@
 /**
  * Theme:
  * Theme Url:
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS

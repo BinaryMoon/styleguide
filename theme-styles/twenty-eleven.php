@@ -2,6 +2,8 @@
 /**
  * Theme: Twenty Eleven
  * Theme Url: https://wordpress.org/themes/twentyeleven
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS

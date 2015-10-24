@@ -2,6 +2,8 @@
 /**
  * Theme: Monet
  * Theme Url: https://creativemarket.com/BinaryMoon/312560-Monet-WordPress-Portfolio-Theme?u=BinaryMoon
+ *
+ * @package: styleguide
  */
 
 $css = <<<CSS
