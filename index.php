@@ -3,7 +3,7 @@
  * Plugin Name: Styleguide - Custom Fonts and Colours
  * Plugin URI: http://wordpress.org/plugins/styleguide/
  * Description: Easily customise the theme fonts and colours that you use on your website.
- * Version: 1.4.3
+ * Version: 1.5
  * Author: BinaryMoon
  * Author URI: http://prothemedesign.com/
  * License: GPLv2 or later
