@@ -38,7 +38,12 @@ $css = <<<CSS
 		color: {{color-key-fg-0}};
 		border-color:{{color-key-fg-0}};
 	}
-	.masthead .menu ul a.menu-back:before,
+	.masthead .menu ul a.menu-back {
+		color: {{color-key-fg-0}};
+	}
+	.masthead .menu ul a.menu-back:before {
+		border-right-color: {{color-key-fg-0}};
+	}
 	.masthead .menu ul a.menu-expand:before {
 		border-left-color: {{color-key-fg-0}};
 	}

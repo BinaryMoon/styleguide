@@ -14,19 +14,22 @@ class StyleGuide {
 
 	/**
 	 * Store the generated colours
+	 *
 	 * @var array Stores colours
 	 */
 	private $colors = array();
 
 	/**
 	 * Store the processed fonts
+	 *
 	 * @var array List of fonts
 	 */
 	private $fonts = array();
 
 	/**
 	 * The current version for the theme.
-	 * @var float the curren file version number.
+	 *
+	 * @var float the current file version number.
 	 */
 	private $version = '1.4';
 
@@ -34,7 +37,7 @@ class StyleGuide {
 	/**
 	 * Initialize everything
 	 */
-	public function __construct() {
+	function __construct() {
 
 		// Prevent duplication.
 		global $styleguide;
@@ -42,6 +45,8 @@ class StyleGuide {
 		if ( isset( $styleguide ) ) {
 			return $styleguide;
 		}
+
+		load_plugin_textdomain( 'styleguide', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 		add_action( 'after_setup_theme', array( &$this, 'check_compat' ), 99 );
 		add_action( 'wp_head', array( &$this, 'process_styles' ), 99 );
@@ -212,7 +217,7 @@ class StyleGuide {
 		// If the css has changed then output css.
 		if ( $start_css !== $css ) {
 			echo '<!-- Styleguide styles -->' . "\r\n";
-			echo '<style>' . stripslashes( wp_filter_nohtml_kses( $css ) ) . '</style>';
+			echo '<style>' . stripslashes( $css ) . '</style>';
 		}
 
 	}
@@ -244,11 +249,14 @@ class StyleGuide {
 	function replace_fonts( $css ) {
 
 		foreach ( $this->fonts as $key => $font ) {
-			$css = str_replace( '{{font-' . $key . '}}', $font['family'], $css );
 
-			if ( ! empty( $font['weight'] ) && 'default' !== $font['weight'] ) {
-				$css = str_replace( '{{font-' . $key . '-weight}}', $font['weight'], $css );
+			if ( empty( $font['weight'] ) || 'default' === $font['weight'] ) {
+				$font['weight'] = 'inherit';
 			}
+
+			$css = str_replace( '{{font-' . $key . '}}', $font['family'], $css );
+			$css = str_replace( '{{font-' . $key . '-weight}}', $font['weight'], $css );
+
 		}
 
 		return $css;

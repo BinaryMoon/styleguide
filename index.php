@@ -3,7 +3,7 @@
  * Plugin Name: Styleguide - Custom Fonts and Colours
  * Plugin URI: http://wordpress.org/plugins/styleguide/
  * Description: Easily customise the theme fonts and colours that you use on your website.
- * Version: 1.5
+ * Version: 1.5.2
  * Author: BinaryMoon
  * Author URI: http://prothemedesign.com/
  * License: GPLv2 or later
@@ -38,6 +38,7 @@
  * check if the color control already exists and if not create it
  * behave better when there's already defined colours (eg with Twenty Fifteen)
  * remove rules containing handlebars (ie with no property set)
+ * add support for child themes - using an 'include' process that allows you to include a theme style file
  */
 
 

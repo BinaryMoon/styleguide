@@ -5,6 +5,7 @@
  *
  * @package: styleguide
  */
+
 $css = <<<CSS
 	body,
 	.widget-title,
@@ -90,6 +91,7 @@ add_theme_support( 'styleguide', array(
 		'body' => array(
 			'label' => __( 'Secondary Font', 'styleguide' ),
 			'default' => 'Roboto',
+			'default-weight' => '100.300',
 		),
 	),
 	'css' => $css,

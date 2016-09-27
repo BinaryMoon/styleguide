@@ -5,13 +5,13 @@
  */
 /* global wp, console */
 
-;(function( $ ){
+;( function( $ ) {
 
 	var api = wp.customize;
 	var default_text = 'Default';
 
 	// font picker
-	$( document ).ready(function(){
+	$( document ).ready( function() {
 
 		$( '.styleguide-font-picker' ).each( function() {
 

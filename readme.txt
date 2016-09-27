@@ -2,7 +2,7 @@
 Contributors: binarymoon
 Tags: customizer, css, color, colors, colour, colours, fonts, google fonts, localize, localization
 Requires at least: 4
-Tested up to: 4.4
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,12 +42,13 @@ By default Styleguide uses Latin. To limit the font choice to those supporting y
 = Supported Themes =
 
 * [Kent](https://wordpress.org/themes/kent)
-* [Puzzle](https://creativemarket.com/BinaryMoon/108641-Puzzle-Responsive-WordPress-Theme?u=BinaryMoon)
-* [Broadsheet](https://creativemarket.com/BinaryMoon/108643-Broadsheet-Newspaper-Theme?u=BinaryMoon)
-* [Lens](https://creativemarket.com/BinaryMoon/108642-Lens-Responsive-Photography-Theme?u=BinaryMoon)
-* [Monet](https://creativemarket.com/BinaryMoon/312560-Monet-WordPress-Portfolio-Theme?u=BinaryMoon)
-* [Mimbo Pro](https://creativemarket.com/BinaryMoon/111465-Mimbo-Pro-WordPress-Theme?u=BinaryMoon)
-* [Opti](https://creativemarket.com/BinaryMoon/9918-Opti-Responsive-WordPress-Theme?u=BinaryMoon)
+* [Puzzle](https://prothemedesign.com/theme/puzzle/)
+* [Chronicle](https://prothemedesign.com/theme/chronicle/)
+* [Broadsheet](https://prothemedesign.com/theme/broadsheet/)
+* [Lens](https://prothemedesign.com/theme/lens/)
+* [Monet](https://prothemedesign.com/theme/monet/)
+* [Mimbo Pro](https://prothemedesign.com/theme/mimbopro/)
+* [Opti](https://prothemedesign.com/theme/opti/)
 * [Adaline](https://themetry.com/shop/adaline/)
 * [Twenty Ten](https://wordpress.org/themes/twentyten)
 * [Twenty Eleven](https://wordpress.org/themes/twentyeleven)
@@ -99,6 +100,21 @@ add_filter( 'styleguide_get_fonts', 'my_fonts' );`
 2. Twenty Thirteen with some alternate colours
 
 == Changelog ==
+
+= 1.6 =
+* Fix Chronicle styles
+* Make localisations work
+
+= 1.5.2 =
+* Tweak css sanitization to allow more CSS rules
+* Add support for Chronicle theme
+* bump version number (now tested with WP 4.5.2)
+
+= 1.5.1 =
+* improve support for Opti theme
+* improve support for Monet theme
+* bump version number (now tested with WP 4.5)
+* change default font weight property so that it behaves more nicely
 
 = 1.5 =
 * Various code and security improvements
